@@ -3,6 +3,9 @@
 {% block title %}Mój blog{% endblock %}
 
 {% block content %}
+<!-- Flash messages -->
+{% include 'blog/components/messages.html' %}
+
 <div class="posts-list-wrapper">
     <h1>Lista postów</h1>
     {% for post in posts %}

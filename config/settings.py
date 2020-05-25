@@ -113,3 +113,11 @@ STATICFILES_FINDERS = [
     "sass_processor.finders.CssFinder",
 ]
 SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, "static")
+
+
+try:
+    from django.contrib.messages import constants as messages
+
+    MESSAGE_TAGS = {messages.SUCCESS: "alert-success", messages.ERROR: "alert-danger"}
+except Exception as e:
+    pass
