@@ -1,0 +1,41 @@
+{% load static %}
+{% load sass_tags %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Links -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="{% sass_src 'scss/main.scss' %}" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+</head>
+<body>
+<header>
+        {% include "blog/components/navbar.html" %}
+</header>
+<div class="container">
+    <div class="row">
+        <div id="content" class="col-8">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div id="sidebar" class="col-4">
+            <h2>Strona bazowa bloga</h2>
+        </div>
+    </div>
+</div>
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous">
+</script>
+</body>
+</html>

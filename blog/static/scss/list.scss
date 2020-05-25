@@ -1,0 +1,27 @@
+.posts-list-wrapper {
+    .post-item{
+        .title {
+             color:$blue-100;
+        }
+        .date {
+            font-family: georgia, serif;
+            font-size: $font-xs;
+            font-style: italic;
+        }
+        .description {
+            margin-bottom: 1rem;
+            color: $gray-100;
+            p {
+                margin: 0;
+            }
+        }
+    }
+     // Pagination
+    .pagination {
+        font-weight:700;
+        margin: $margin-4 0;
+        .step-links, .current {
+            color: $gray-100;
+        }
+    }
+}

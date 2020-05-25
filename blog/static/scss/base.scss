@@ -1,0 +1,32 @@
+body {
+    font-family:helvetica, sans-serif;
+}
+
+a {
+    .title {
+        color:$blue-100;
+    }
+    .date {
+        color: $gray-100;
+    }
+    &:hover {
+        text-decoration:none;
+    }
+}
+
+h1 {
+    border-bottom:1px solid $gray-100;
+    padding:0 0 $padding-1 0;
+}
+
+.container{
+    margin: $margin-3 auto;
+
+    #sidebar {
+        height: $default-sidebar-height;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $gray-200;
+    }
+}

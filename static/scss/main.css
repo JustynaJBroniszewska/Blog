@@ -1,0 +1,46 @@
+body {
+  font-family: helvetica, sans-serif; }
+
+a .title {
+  color: #00abff; }
+
+a .date {
+  color: #aaa; }
+
+a:hover {
+  text-decoration: none; }
+
+h1 {
+  border-bottom: 1px solid #aaa;
+  padding: 0 0 10px 0; }
+
+.container {
+  margin: 30px auto; }
+  .container #sidebar {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #efefef; }
+
+.posts-list-wrapper .post-item .title {
+  color: #00abff; }
+
+.posts-list-wrapper .post-item .date {
+  font-family: georgia, serif;
+  font-size: 12px;
+  font-style: italic; }
+
+.posts-list-wrapper .post-item .description {
+  margin-bottom: 1rem;
+  color: #aaa; }
+  .posts-list-wrapper .post-item .description p {
+    margin: 0; }
+
+.posts-list-wrapper .pagination {
+  font-weight: 700;
+  margin: 40px 0; }
+  .posts-list-wrapper .pagination .step-links, .posts-list-wrapper .pagination .current {
+    color: #aaa; }
+
+/*# sourceMappingURL=main.css.map */
