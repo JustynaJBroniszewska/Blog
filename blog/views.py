@@ -1,10 +1,13 @@
 from django.contrib import messages
+from django.core.mail import send_mail
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, FormView
 
+from .forms import EmailPostForm, ContactUsForm
 from .models import Post
-from .forms import EmailPostForm
 
 
 class PostList(ListView):
@@ -46,3 +49,32 @@ class SharePost(FormView):
             return render(request, "blog/post/list.html")
         else:
             return self.form_invalid(form)
+
+
+class ContactUs(FormView):
+    template_name = "blog/components/contact.html"
+    form_class = ContactUsForm
+    success_url = reverse_lazy("blog:contact")
+
+    def post(self, request, *args, **kwargs):
+
+        form = self.get_form()
+        if form.is_valid():
+
+            sender_name = form.cleaned_data["name"]
+            sender_email = form.cleaned_data["email"]
+            message = "{0} przesyła wiadomość:\n\n{1}".format(
+                sender_name, form.cleaned_data["comment"]
+            )
+
+            send_mail("Nowa wiadomość", message, sender_email, ["example@mail.com"])
+
+            try:
+                messages.success(request, "Dziękujemy za kontakt.")
+            except Exception:
+                messages.error(request, "Niestety, nie udało się wysłać wiadomości.")
+
+            return redirect(reverse("blog:post_list"))
+        else:
+            form = self.get_form(form)
+        return render(request, "blog/components/contact.html", {"form": form})

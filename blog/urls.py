@@ -12,4 +12,5 @@ urlpatterns = [
     path(
         "<int:post_id>/udostepnij-post/", views.SharePost.as_view(), name="share_post"
     ),
+    path("kontakt/", views.ContactUs.as_view(), name="contact"),
 ]
