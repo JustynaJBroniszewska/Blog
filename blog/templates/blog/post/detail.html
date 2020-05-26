@@ -4,4 +4,5 @@
 <h1>{{ post.title }}</h1>
 <div class="date">Opublikowany: {{ post.publish }} przez {{ post.author }}</div>
 <div class="description">{{ post.body }}</div>
+<a href="{% url 'blog:share_post' post.id %}">Udostępnij post</a>
 {% endblock %}
