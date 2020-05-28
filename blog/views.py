@@ -34,17 +34,32 @@ class SharePost(FormView):
 
     def post(self, request, *args, **kwargs):
         post = get_object_or_404(Post, id=kwargs["post_id"], status="published")
+
         form = self.get_form()
+
         if form.is_valid():
 
-            sender_name = form.cleaned_data["sender_name"]
-            sender_email = form.cleaned_data["sender_email"]
-            addressee_email = form.cleaned_data["addressee_email"]
-            message = "Nadawca:{0}, udostępnił Ci post:\n{1}".format(
-                sender_name, post.title
-            )
-            send_mail("Nowa wiadomość", message, sender_email, ["example@mail.com"])
+            post_url = request.build_absolute_uri(post.get_absolute_url())
 
+            subject = "{} ({}) zachęca do przeczytania '{}'".format(
+                form.cleaned_data["sender_name"],
+                form.cleaned_data["sender_email"],
+                post.title,
+            )
+            message = "Przeczytaj post '{}' na stronie {} \n\nKomentarz dodany przez {}:\n\n{}".format(
+                post.title,
+                post_url,
+                form.cleaned_data["sender_name"],
+                form.cleaned_data["comment"],
+            )
+            addressee_email = form.cleaned_data["addressee_email"]
+
+            send_mail(
+                subject,
+                message,
+                "example@mail.com",
+                [form.cleaned_data["addressee_email"]],
+            )
             try:
                 messages.success(
                     request,
@@ -57,6 +72,7 @@ class SharePost(FormView):
             return render(request, "blog/post/list.html")
         else:
             return self.form_invalid(form)
+        return render(request, self.template_name, {"post": post, "form": form})
 
 
 class ContactUs(FormView):
