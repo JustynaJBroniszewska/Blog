@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.http import HttpResponse
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
@@ -37,6 +36,15 @@ class SharePost(FormView):
         post = get_object_or_404(Post, id=kwargs["post_id"], status="published")
         form = self.get_form()
         if form.is_valid():
+
+            sender_name = form.cleaned_data["sender_name"]
+            sender_email = form.cleaned_data["sender_email"]
+            addressee_email = form.cleaned_data["addressee_email"]
+            message = "Nadawca:{0}, udostępnił Ci post:\n{1}".format(
+                sender_name, post.title
+            )
+            send_mail("Nowa wiadomość", message, sender_email, ["example@mail.com"])
+
             try:
                 messages.success(
                     request,
@@ -61,8 +69,8 @@ class ContactUs(FormView):
         form = self.get_form()
         if form.is_valid():
 
-            sender_name = form.cleaned_data["name"]
-            sender_email = form.cleaned_data["email"]
+            sender_name = form.cleaned_data["sender_name"]
+            sender_email = form.cleaned_data["sender_email"]
             message = "{0} przesyła wiadomość:\n\n{1}".format(
                 sender_name, form.cleaned_data["comment"]
             )
