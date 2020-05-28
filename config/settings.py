@@ -118,4 +118,7 @@ SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, "static")
 MESSAGE_TAGS = {messages.SUCCESS: "alert-success", messages.ERROR: "alert-danger"}
 
 # Email config
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# Email config
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "127.0.0.1"
+EMAIL_PORT = "1025"
