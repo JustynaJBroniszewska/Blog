@@ -5,9 +5,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, FormView
 
-from .forms import EmailPostForm, ContactUsForm
-from .models import Post
-
+from .forms import EmailPostForm, ContactUsForm, CommentForm
+from .models import Post, Comment
+from django.http import HttpResponse 
+import json
 
 class PostList(ListView):
     queryset = Post.published.all()
@@ -16,17 +17,47 @@ class PostList(ListView):
     template_name = "blog/post/list.html"
 
 
-def post_detail(request, year, month, day, post):
-    post = get_object_or_404(
-        Post,
-        slug=post,
-        status="published",
-        publish__year=year,
-        publish__month=month,
-        publish__day=day,
-    )
-    return render(request, "blog/post/detail.html", {"post": post})
+class PostDetail(FormView):
+    form_class = CommentForm
+    template_name = "blog/post/detail.html"        
 
+    def get(self, request, *args, **kwargs):
+        post = get_object_or_404(
+            Post,
+            slug=kwargs["post"],
+            status="published",
+            publish__year=kwargs["year"],
+            publish__month=kwargs["month"],
+            publish__day=kwargs["day"],
+        )
+        comments = post.comments.filter(active=True)
+        comment_form = self.form_class()
+        return render(
+            request,
+            self.template_name,
+            {"post": post, "comments": comments, "comment_form": comment_form},
+        )
+
+    def post(self, request, *args, **kwargs):
+        post = get_object_or_404(
+            Post,
+            slug=kwargs["post"],
+            status="published",
+            publish__year=kwargs["year"],
+            publish__month=kwargs["month"],
+            publish__day=kwargs["day"],
+        )
+        comments = post.comments.filter(active=True)
+        form = self.get_form()
+        if form.is_valid():
+            comment_form = self.form_class(data=request.POST)
+            if comment_form.is_valid():
+                new_comment = comment_form.seve(commit=False)
+                new_comment.post = post
+                new_comment.save()
+        else:
+            return self.form_invalid(form)
+        
 
 class SharePost(FormView):
     form_class = EmailPostForm

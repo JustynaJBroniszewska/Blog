@@ -6,7 +6,7 @@ urlpatterns = [
     path("", views.PostList.as_view(), name="post_list"),
     path(
         "<int:year>/<int:month>/<int:day>/<slug:post>/",
-        views.post_detail,
+        views.PostDetail.as_view(),
         name="post_detail",
     ),
     path(
