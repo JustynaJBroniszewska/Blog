@@ -9,14 +9,20 @@ from .forms import EmailPostForm, ContactUsForm, CommentForm
 from .models import Post, Comment
 from django.http import HttpResponse
 import json
+from taggit.models import Tag
 
 
 class PostList(ListView):
-    queryset = Post.published.all()
     context_object_name = "posts"
     paginate_by = 3
     template_name = "blog/post/list.html"
+    model = Post
 
+    def get_queryset(self):
+        if ('tag_slug' in self.kwargs and self.kwargs['tag_slug']):
+            tag = get_object_or_404(Tag, slug=self.kwargs['tag_slug'])
+            return self.model.published.all().filter(tags__in=[tag])
+        return self.model.published.all()
 
 class PostDetail(FormView):
     form_class = CommentForm

@@ -23,24 +23,30 @@ h1 {
     align-items: center;
     background: #efefef; }
 
-.posts-list-wrapper .post-item .title {
-  color: #00abff; }
+.posts-list-wrapper .post-item {
+  font-size: 20px; }
+  .posts-list-wrapper .post-item .title {
+    color: #00abff; }
 
-.posts-list-wrapper .post-item .date {
+.posts-list-wrapper .date,
+.posts-list-wrapper .tags {
   font-family: georgia, serif;
-  font-size: 12px;
-  font-style: italic; }
+  font-size: 12px; }
 
-.posts-list-wrapper .post-item .description {
+.posts-list-wrapper .date {
+  color: #aaa; }
+
+.posts-list-wrapper .description {
   margin-bottom: 1rem;
   color: #aaa; }
-  .posts-list-wrapper .post-item .description p {
+  .posts-list-wrapper .description p {
     margin: 0; }
 
 .posts-list-wrapper .pagination {
   font-weight: 700;
   margin: 40px 0; }
-  .posts-list-wrapper .pagination .step-links, .posts-list-wrapper .pagination .current {
+  .posts-list-wrapper .pagination .step-links,
+  .posts-list-wrapper .pagination .current {
     color: #aaa; }
 
 /*# sourceMappingURL=main.css.map */
