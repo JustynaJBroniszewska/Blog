@@ -8,12 +8,23 @@
 
 <div class="posts-list-wrapper">
     <h1>Lista postów</h1>
+    {% if tag %}
+    <h2>Posts tagged with "{{ tag.name }}"</h2>
+    {% endif %}
     {% for post in posts %}
-    <a class="post-item" href="{{ post.get_absolute_url }}">
+    <a class="post-item"
+       href="{{ post.get_absolute_url }}">
         <div class="titie">{{ post.title }}</div>
-        <div class="date">Opublikowany: {{ post.publish }} przez {{ post.author }}</div>
-        <div class="description">{{ post.body|truncatewords:15|linebreaks }}</div>
     </a>
+    {% for tag in post.tags.all %}
+    <a href="{% url 'blog:post_list_by_tag' tag.slug %}"
+       class="tags">{{ tag.name }}
+    </a>
+    {% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    <div class="date">Opublikowany: {{ post.publish }} przez {{ post.author }}</div>
+    <div class="description">{{ post.body|truncatewords:15|linebreaks }}</div>
+
     {% endfor %}
 
     <!-- Paginator -->

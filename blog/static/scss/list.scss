@@ -1,26 +1,39 @@
 .posts-list-wrapper {
-    .post-item{
+    .post-item {
+        font-size: $font-xl;
+
         .title {
-             color:$blue-100;
-        }
-        .date {
-            font-family: georgia, serif;
-            font-size: $font-xs;
-            font-style: italic;
-        }
-        .description {
-            margin-bottom: 1rem;
-            color: $gray-100;
-            p {
-                margin: 0;
-            }
+            color: $blue-100;
         }
     }
-     // Pagination
+
+    .date,
+    .tags {
+        font-family: georgia, serif;
+        font-size: $font-xs;
+    }
+
+    .date {
+        color: $gray-100;
+    }
+
+    .description {
+        margin-bottom: 1rem;
+        color: $gray-100;
+
+        p {
+            margin: 0;
+        }
+    }
+
+
+    // Pagination
     .pagination {
-        font-weight:700;
+        font-weight: 700;
         margin: $margin-4 0;
-        .step-links, .current {
+
+        .step-links,
+        .current {
             color: $gray-100;
         }
     }
