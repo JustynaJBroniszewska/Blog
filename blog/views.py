@@ -7,8 +7,9 @@ from django.views.generic import ListView, FormView
 
 from .forms import EmailPostForm, ContactUsForm, CommentForm
 from .models import Post, Comment
-from django.http import HttpResponse 
+from django.http import HttpResponse
 import json
+
 
 class PostList(ListView):
     queryset = Post.published.all()
@@ -19,7 +20,7 @@ class PostList(ListView):
 
 class PostDetail(FormView):
     form_class = CommentForm
-    template_name = "blog/post/detail.html"        
+    template_name = "blog/post/detail.html"
 
     def get(self, request, *args, **kwargs):
         post = get_object_or_404(
@@ -52,12 +53,17 @@ class PostDetail(FormView):
         if form.is_valid():
             comment_form = self.form_class(data=request.POST)
             if comment_form.is_valid():
-                new_comment = comment_form.seve(commit=False)
+                new_comment = comment_form.save(commit=False)
                 new_comment.post = post
                 new_comment.save()
         else:
-            return self.form_invalid(form)
-        
+            form = self.form_invalid(form)
+        return render(
+            request,
+            self.template_name,
+            {"post": post, "comments": comments, "comment_form": comment_form},
+        )
+
 
 class SharePost(FormView):
     form_class = EmailPostForm

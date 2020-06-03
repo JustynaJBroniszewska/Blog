@@ -5,4 +5,35 @@
 <div class="date">Opublikowany: {{ post.publish }} przez {{ post.author }}</div>
 <div class="description">{{ post.body }}</div>
 <a href="{% url 'blog:share_post' post.id %}">Udostępnij post</a>
+
+{% with comments.count as total_comments %}
+<h5>
+    {{ total_comments }} komentarz{{ total_comments|pluralize:"y" }}
+</h5>
+{% endwith %}
+
+{% for comment in comments %}
+<div class="comment">
+    <div class="info small">
+        Komentarz {{ forloop.counter }} dodany przez {{ comment.commentator_name }}
+        <span class="comment-date"> / {{ comment.created }} </span>
+    </div>
+    <div>{{ comment.comment_body|linebreaks }}</div>
+
+</div>
+<hr/>
+{% empty %}
+<p>Nie dodano żadnych komentarzy.</p>
+{% endfor %}
+{% if new_comment %}
+<h6>Twój komentarz został dodany</h6>
+{% else %}
+<h4>Dodaj nowy komentarz</h4>
+<form action="." method="POST">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button class="btn btn-primary" type="submit">Dodaj komentarz</button>
+</form>
+{% endif %}
+
 {% endblock %}
