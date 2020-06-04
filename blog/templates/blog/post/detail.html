@@ -1,39 +1,50 @@
 {% extends 'blog/base.html' %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
-<h1>{{ post.title }}</h1>
-<div class="date">Opublikowany: {{ post.publish }} przez {{ post.author }}</div>
-<div class="description">{{ post.body }}</div>
-<a href="{% url 'blog:share_post' post.id %}">Udostępnij post</a>
+<div class="details-wrapper">
+    <h1 class="title">{{ post.title }}</h1>
+    <div class="date">Opublikowany: {{ post.publish }} przez {{ post.author }}</div>
+    <div class="description">{{ post.body }}</div>
+    <a class="share-post" href="{% url 'blog:share_post' post.id %}"> Udostępnij post</a>
 
-{% with comments.count as total_comments %}
-<h5>
-    {{ total_comments }} komentarz{{ total_comments|pluralize:"y" }}
-</h5>
-{% endwith %}
+    {% if similar_posts%}
+    <h2 class="similar-posts">Podobne posty</h2>
+    {% for post in similar_posts %}
+    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    {% endfor %}
+    {% endif %}
 
-{% for comment in comments %}
-<div class="comment">
-    <div class="info small">
-        Komentarz {{ forloop.counter }} dodany przez {{ comment.commentator_name }}
-        <span class="comment-date"> / {{ comment.created }} </span>
+    {% if comments %}
+    <div class="comments-header-wrapper">
+        <h3 class="comments-header"> Komentarze</h3>
+        {% with comments.count as total_comments %}
+        <div class="comments-count"> Liczba komentarzy: {{ total_comments }}</div>
+        {% endwith %}
     </div>
-    <div>{{ comment.comment_body|linebreaks }}</div>
 
+    {% for comment in comments %}
+    <div class="comment-body">
+        <div class="comment-info">
+            {{ comment.commentator_name }}
+            <span class="comment-date"> / {{ comment.created }} </span>
+        </div>
+        <div>{{ comment.comment_body|linebreaks }}</div>
+    </div>
+    {% empty %}
+    <p>Nie dodano żadnych komentarzy.</p>
+    {% endfor %}
+    {% endif %}
+
+    {% if new_comment %}
+    <h4>Twój komentarz został dodany</h4>
+    {% else %}
+    <h4 class="comments-header add-comment">Dodaj komentarz</h4>
+    <form action="." method="POST" class="create-comment-form">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button class="btn btn-outline-primary" type="submit">Dodaj komentarz</button>
+    </form>
+    {% endif %}
 </div>
-<hr/>
-{% empty %}
-<p>Nie dodano żadnych komentarzy.</p>
-{% endfor %}
-{% if new_comment %}
-<h6>Twój komentarz został dodany</h6>
-{% else %}
-<h4>Dodaj nowy komentarz</h4>
-<form action="." method="POST">
-    {% csrf_token %}
-    {{ comment_form.as_p }}
-    <button class="btn btn-primary" type="submit">Dodaj komentarz</button>
-</form>
-{% endif %}
 
 {% endblock %}
