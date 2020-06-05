@@ -1,4 +1,10 @@
 from django.contrib import messages
+from django.contrib.postgres.search import (
+    SearchVector,
+    SearchQuery,
+    SearchRank,
+    TrigramSimilarity,
+)
 from django.core.mail import send_mail
 from django.db.models import Count
 
@@ -6,7 +12,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, FormView
 
-from .forms import EmailPostForm, ContactUsForm, CommentForm
+from .forms import EmailPostForm, ContactUsForm, CommentForm, SearchForm
 from .models import Post
 from taggit.models import Tag
 

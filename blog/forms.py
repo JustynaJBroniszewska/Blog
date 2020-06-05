@@ -32,3 +32,7 @@ class CommentForm(forms.ModelForm):
             "commentator_email": "E-mail:",
             "comment_body": "Komentarz:",
         }
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField()
