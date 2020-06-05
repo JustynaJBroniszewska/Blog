@@ -30,6 +30,7 @@
             </div>
             <div id="sidebar" class="col-4">
                 <h5 class="total-post-count"> Liczba opublikowanych postów: {% total_posts %}</h5>
+                <a href="{% url 'blog:post_feed' %}">Subskrybuj kanał RSS</a>
                 <h5 class="latest-post-header">Najnowsze posty</h5>
                 {% show_latest_posts 3 %}
                 <h5 class="most-popular-posts">Najczęściej komentowane posty</h5>
