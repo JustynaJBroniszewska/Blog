@@ -1,25 +1,27 @@
 body {
-    font-family:helvetica, sans-serif;
+    font-family: helvetica, sans-serif;
 }
 
 a {
     .title {
-        color:$blue-100;
+        color: $blue-100;
     }
+
     .date {
         color: $gray-100;
     }
+
     &:hover {
-        text-decoration:none;
+        text-decoration: none;
     }
 }
 
 h1 {
-    border-bottom:1px solid $gray-100;
-    padding:0 0 $padding-1 0;
+    padding: 0 0 $padding-1 0;
+    border-bottom: 1px solid $gray-100;
 }
 
-.container{
+.container {
     margin: $margin-3 auto;
 
     #sidebar {

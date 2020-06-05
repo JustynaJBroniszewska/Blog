@@ -2,7 +2,7 @@ body {
   font-family: helvetica, sans-serif; }
 
 a .title {
-  color: #00abff; }
+  color: #007bff; }
 
 a .date {
   color: #aaa; }
@@ -11,8 +11,8 @@ a:hover {
   text-decoration: none; }
 
 h1 {
-  border-bottom: 1px solid #aaa;
-  padding: 0 0 10px 0; }
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #aaa; }
 
 .container {
   margin: 30px auto; }
@@ -26,7 +26,7 @@ h1 {
 .posts-list-wrapper .post-item {
   font-size: 20px; }
   .posts-list-wrapper .post-item .title {
-    color: #00abff; }
+    color: #007bff; }
 
 .posts-list-wrapper .date,
 .posts-list-wrapper .tags {
@@ -48,5 +48,40 @@ h1 {
   .posts-list-wrapper .pagination .step-links,
   .posts-list-wrapper .pagination .current {
     color: #aaa; }
+
+.details-wrapper .description {
+  margin-top: 20px; }
+
+.details-wrapper .similar-posts {
+  margin-top: 40px;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #aaa; }
+
+.details-wrapper .comments-header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+  border-bottom: 1px solid #aaa; }
+  .details-wrapper .comments-header-wrapper .comments-count {
+    text-align: right; }
+
+.details-wrapper .comment-body {
+  margin-top: 20px; }
+
+.details-wrapper .comments-header.add-comment {
+  margin-top: 40px; }
+
+.details-wrapper .create-comment-form input {
+  width: 100%;
+  border: 1px solid #aaa; }
+
+.details-wrapper .create-comment-form textarea {
+  display: block;
+  width: 100%; }
+
+.details-wrapper .create-comment-form .btn {
+  display: flex;
+  margin-left: auto; }
 
 /*# sourceMappingURL=main.css.map */
