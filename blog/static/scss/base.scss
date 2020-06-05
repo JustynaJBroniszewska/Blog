@@ -25,10 +25,14 @@ h1 {
     margin: $margin-3 auto;
 
     #sidebar {
-        height: $default-sidebar-height;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: $gray-200;
+        .latest-post-header {
+            margin-top: $margin-2;
+        }
+
+        .latest-post-list,
+        .most-popular-post-list {
+            padding-left: 0;
+            list-style-type: none;
+        }
     }
 }
