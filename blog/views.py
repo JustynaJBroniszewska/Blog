@@ -5,6 +5,7 @@ from django.contrib.postgres.search import (
     SearchRank,
     TrigramSimilarity,
 )
+from django.db.models import Q
 from django.core.mail import send_mail
 from django.db.models import Count
 
@@ -12,7 +13,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, FormView
 
-from .forms import EmailPostForm, ContactUsForm, CommentForm, SearchForm
+from .forms import EmailPostForm, ContactUsForm, CommentForm
 from .models import Post
 from taggit.models import Tag
 
@@ -156,3 +157,14 @@ class ContactUs(FormView):
         else:
             form = self.get_form(form)
         return render(request, "blog/components/contact.html", {"form": form})
+
+
+class SearchResultsView(ListView):
+    template_name = "search_results.html"
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        posts = Post.objects.filter(
+            Q(title__icontains=query) | Q(body__icontains=query)
+        )
+        return posts

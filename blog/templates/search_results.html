@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+{% block title %}Wyniki wyszukiwania{% endblock %}
+
+{% load static %}
+
+
+{% block content %}
+
+<div class="row search-results-wrapper">
+
+    <div class="col-12 section-header new-section-markup">
+        <div class="hint-header">Wyniki wyszukiwania</div>
+    </div>
+
+    <ul class="col-12 search-results-list">
+
+        {% for post in posts %}
+        <li class="search-result-item">
+           
+        </li>
+        {% endfor %}
+
+    </ul>
+
+</div>
+
+{% endblock %}

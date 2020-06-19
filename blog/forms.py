@@ -33,6 +33,3 @@ class CommentForm(forms.ModelForm):
             "comment_body": "Komentarz:",
         }
 
-
-class SearchForm(forms.Form):
-    query = forms.CharField()
